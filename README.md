@@ -90,3 +90,11 @@ export default defineConfig([
 - To be added later
 
 ### Logic
+
+Folders:
+
+- components: General page components;
+- styles: CSS files;
+- pages: Pages of the application;
+- utils: Utilities for the project;
+- assets: Static files;

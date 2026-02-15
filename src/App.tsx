@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
-import './App.css';
+import './styles/theme.css';
+import './styles/global.css';
 
-function App() {
+export function App() {
   const [count, setCount] = useState(0);
   const [counter, setCounter] = useState(30);
   const [isRunning, setIsRunning] = useState(false);
@@ -72,5 +73,3 @@ function App() {
     </>
   );
 }
-
-export default App;

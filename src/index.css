@@ -1,4 +1,6 @@
+/* Not being used */
 :root {
+  --iam-available: #4ade80;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -20,6 +22,10 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+p {
+  color: var(--iam-available);
 }
 
 body {
