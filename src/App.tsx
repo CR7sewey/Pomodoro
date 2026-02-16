@@ -2,13 +2,13 @@ import './styles/theme.css';
 import './styles/global.css';
 import { MainTemplate } from './templates/MainTemplate';
 import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 
 export function App() {
   return (
     <>
-      <MainTemplate>
-        <Home />
-      </MainTemplate>
+      <Home />
+      <NotFound />
     </>
   );
 }

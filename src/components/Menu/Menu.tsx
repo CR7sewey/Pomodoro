@@ -18,6 +18,11 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
     getThemeFromLocalStorage() ?? 'Light',
   );
 
+  const nextTheme = {
+    dark: <Sun />,
+    light: <MoonIcon />,
+  };
+
   const changeTheme = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     setTheme(prevTheme => {
@@ -63,7 +68,7 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
             changeTheme(e);
           }}
         >
-          {theme === 'Light' ? <Sun /> : <MoonIcon />}
+          {nextTheme[theme.toLowerCase()]}
         </a>
       ))}
     </nav>

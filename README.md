@@ -103,3 +103,5 @@ Folders:
 #### Important components
 
 - Container: envelop to wrap the specific components;
+- MainTemplate: template to receive children of pages, with icons, footer etc
+  already included
