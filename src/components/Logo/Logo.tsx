@@ -1,6 +1,6 @@
 import { TimerIcon } from 'lucide-react';
-import { Heading } from './../Heading/Heading';
-import styles from './Logo.module.css';
+import Heading from './../Heading';
+import styles from './styles.module.css';
 
 export function Logo() {
   return (

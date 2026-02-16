@@ -1,8 +1,8 @@
 import './styles/theme.css';
 import './styles/global.css';
-import { Container } from './components/Container/Container';
-import { Logo } from './components/Logo/Logo';
-import { Menu } from './components/Menu/Menu';
+import Container from './components/Container';
+import Logo from './components/Logo';
+import Menu from './components/Menu';
 import { useState } from 'react';
 import { menuItems } from './utils/constants';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { menuItems } from '../../utils/constants';
-import styles from './Menu.module.css';
+import styles from './styles.module.css';
 
 type MenuProps = {
   navItems: typeof menuItems;
