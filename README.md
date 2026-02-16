@@ -98,3 +98,7 @@ Folders:
 - pages: Pages of the application;
 - utils: Utilities for the project;
 - assets: Static files;
+
+#### Important components
+
+- Container: envelop to wrap the specific components;
