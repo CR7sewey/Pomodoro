@@ -98,6 +98,7 @@ Folders:
 - pages: Pages of the application;
 - utils: Utilities for the project;
 - assets: Static files;
+- templates: Template to be used on other tsx;
 
 #### Important components
 
