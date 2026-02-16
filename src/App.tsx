@@ -5,6 +5,10 @@ import Logo from './components/Logo';
 import Menu from './components/Menu';
 import { useState } from 'react';
 import { menuItems } from './utils/constants';
+import { CountDown } from './components/CountDown';
+import { MainForm } from './components/MainForm';
+import { Cycles } from './components/Cycles';
+import { Footer } from './components/Footer';
 
 export function App() {
   const [navItems, setNavItems] = useState(menuItems);
@@ -25,6 +29,15 @@ export function App() {
       </Container>
       <Container>
         <Menu navItems={navItems} setNavItems={setNavItems} />
+      </Container>
+      <Container>
+        <CountDown />
+      </Container>
+      <Container>
+        <MainForm />
+      </Container>
+      <Container>
+        <Footer />
       </Container>
     </>
   );

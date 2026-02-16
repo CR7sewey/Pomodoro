@@ -25,22 +25,19 @@ body {
   background-color: var(--gray-900);
   color: var(--text-default);
 }
-/*
-.container {
-  max-width: 98rem; 
-  margin: 0 auto;
-  padding: 2rem;
-}
 
-.container-fluid {
-  
-  max-width: auto;
-}
-
-.content {
+.form {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 3.2rem;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.4rem;
 }
-*/
+
+.formRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.4rem;
+}
