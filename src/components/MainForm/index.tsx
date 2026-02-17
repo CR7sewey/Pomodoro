@@ -12,9 +12,14 @@ export function MainForm() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
-    console.log(formValues);
+    setBtn(true);
   };
 
+  const handleStopTask = () => {
+    setBtn(false);
+  };
+
+  // button transition: submit -> submit (start task) -> button (stop task)
   return (
     <form onSubmit={handleSubmit} className='form' action=''>
       <div className='formRow'>
@@ -41,6 +46,7 @@ export function MainForm() {
           color={btn === true ? 'red' : 'green'}
           key={btn === true ? 'botao_button' : 'botao_submit'}
           aria-label={btn === true ? 'Stop task' : 'Start task'}
+          onClick={btn ? handleStopTask : undefined}
         />
       </div>
     </form>

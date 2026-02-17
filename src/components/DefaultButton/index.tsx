@@ -5,7 +5,7 @@ import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 type ButtonProps = {
   btn: boolean;
   setBtn: React.Dispatch<React.SetStateAction<boolean>>;
-  type: string;
+  type: 'submit' | 'button' | 'reset';
   color?: string;
 } & React.ComponentProps<'button'>;
 
@@ -14,6 +14,7 @@ export function DefaultButton({
   setBtn,
   type,
   color = 'green',
+  onClick,
   ...rest
 }: ButtonProps) {
   return (
@@ -22,7 +23,7 @@ export function DefaultButton({
         type={type}
         {...rest}
         className={`${styles.button} ${styles[color]}`}
-        onClick={() => setBtn(!btn)}
+        onClick={onClick}
       >
         {btn === true ? <StopCircleIcon /> : <PlayCircleIcon />}
       </button>
