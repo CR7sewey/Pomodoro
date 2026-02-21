@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import useTaskContext from '../../context/useTaskContext';
 
 export function CountDown() {
-  return <div className={styles.countdown}>00:00</div>;
+  const { task } = useTaskContext();
+  return (
+    <div className={styles.countdown}>{task.formattedSecondsRemaining}</div>
+  );
 }

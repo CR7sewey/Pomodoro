@@ -5,6 +5,7 @@ import {
   SettingsIcon,
   SunIcon,
 } from 'lucide-react';
+import type { TaskStateModel } from '../models/TaskModel';
 
 const menuItems = [
   { id: 0, link: '/', active: true, icon: <HouseIcon /> },
@@ -15,17 +16,22 @@ const menuItems = [
 
 type AvailableThemes = 'Light' | 'Dark';
 
-function getThemeFromLocalStorage(): AvailableThemes {
-  return (localStorage.getItem('theme') as AvailableThemes) ?? 'Light';
+function getValueFromLocalStorage(key: string, parse: boolean = false) {
+  const value = localStorage.getItem(key);
+  return value;
 }
 
-function setThemeFromLocalStorage(theme: AvailableThemes): void {
-  localStorage.setItem('theme', theme);
+function setValueToLocalStorage(
+  key: string,
+  value: string,
+  parse: boolean = false,
+): void {
+  localStorage.setItem(key, value);
 }
 
 export {
   menuItems,
   AvailableThemes,
-  getThemeFromLocalStorage,
-  setThemeFromLocalStorage,
+  getValueFromLocalStorage,
+  setValueToLocalStorage,
 };

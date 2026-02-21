@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {
   type AvailableThemes,
-  getThemeFromLocalStorage,
+  getValueFromLocalStorage,
   menuItems,
-  setThemeFromLocalStorage,
+  setValueToLocalStorage,
 } from '../../utils/constants';
 import styles from './styles.module.css';
 import { MoonIcon, Sun } from 'lucide-react';
@@ -15,7 +15,7 @@ type MenuProps = {
 
 export function Menu({ navItems, setNavItems }: MenuProps) {
   const [theme, setTheme] = useState<AvailableThemes>(
-    getThemeFromLocalStorage() ?? 'Light',
+    (getValueFromLocalStorage('theme') as AvailableThemes) ?? 'Light',
   );
 
   const nextTheme = {
@@ -40,7 +40,7 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme.toLowerCase());
-    setThemeFromLocalStorage(theme);
+    setValueToLocalStorage('theme', theme);
   }, [theme]);
 
   return (
