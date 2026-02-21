@@ -16,7 +16,7 @@ function setValueToLocalStorage(
 function getNextCycle(
   currentCycle: TaskStateModel['currentCycle'],
 ): TaskStateModel['currentCycle'] {
-  if (currentCycle >= 1 && currentCycle < 7) {
+  if (currentCycle >= 1 && currentCycle <= 7) {
     return (currentCycle + 1) as TaskStateModel['currentCycle'];
   } else {
     return 1; // Reset to cycle 1 after cycle 7

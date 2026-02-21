@@ -85,9 +85,11 @@ export function MainForm() {
       <div className='formRow'>
         <Tips />
       </div>
-      <div className='formRow'>
-        <Cycles />
-      </div>
+      {task.currentCycle !== 0 && (
+        <div className='formRow'>
+          <Cycles />
+        </div>
+      )}
       <div className='formRow'>
         <DefaultButton
           type={btn === true ? 'button' : 'submit'}
