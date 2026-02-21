@@ -5,7 +5,7 @@ import type { TaskStateModel } from '../models/TaskModel';
 import {
   getValueFromLocalStorage,
   setValueToLocalStorage,
-} from '../utils/constants';
+} from '../utils/methods';
 
 const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   const [task, setTask] = useState<TaskStateModel>(

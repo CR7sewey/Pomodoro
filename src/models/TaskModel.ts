@@ -13,7 +13,7 @@ type TaskStateModel = {
   secondsRemaining: number; // CountDown, MainForm, Button, History
   formattedSecondsRemaining: string; // Title, CountDown
   activeTask: TaskModel | null; // CountDown, MainForm, Button, History
-  currentCycle: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // 1-7: ciclos normais, 8: ciclo de descanso longo; Home
+  currentCycle: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; // 1-7: ciclos normais, 8: ciclo de descanso longo; Home
   config: {
     // MainForm, Home
     workDuration: number;

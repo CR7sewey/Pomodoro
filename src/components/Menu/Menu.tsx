@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  type AvailableThemes,
-  getValueFromLocalStorage,
-  menuItems,
-  setValueToLocalStorage,
-} from '../../utils/constants';
+import { type AvailableThemes, menuItems } from '../../utils/constants';
 import styles from './styles.module.css';
 import { MoonIcon, Sun } from 'lucide-react';
+import {
+  getValueFromLocalStorage,
+  setValueToLocalStorage,
+} from '../../utils/methods';
 
 type MenuProps = {
   navItems: typeof menuItems;

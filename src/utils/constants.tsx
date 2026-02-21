@@ -16,22 +16,4 @@ const menuItems = [
 
 type AvailableThemes = 'Light' | 'Dark';
 
-function getValueFromLocalStorage(key: string, parse: boolean = false) {
-  const value = localStorage.getItem(key);
-  return value;
-}
-
-function setValueToLocalStorage(
-  key: string,
-  value: string,
-  parse: boolean = false,
-): void {
-  localStorage.setItem(key, value);
-}
-
-export {
-  menuItems,
-  AvailableThemes,
-  getValueFromLocalStorage,
-  setValueToLocalStorage,
-};
+export { menuItems, AvailableThemes };
