@@ -1,4 +1,4 @@
-import React, { act, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './styles.module.css';
 import { DefaultInput } from '../DefaultInput';
 import { Tips } from '../Tips';
@@ -7,6 +7,7 @@ import { DefaultButton } from '../DefaultButton';
 import useTaskContext from '../../context/useTaskContext';
 import type { TaskModel, TaskStateModel } from '../../models/TaskModel';
 import { getNextCycle, getTypeOfCycle } from '../../utils/methods';
+import { TaskActionTypes } from '../../context/taskReducer';
 
 export function MainForm() {
   const [btn, setBtn] = useState(false);
@@ -46,7 +47,7 @@ export function MainForm() {
       duration: task.config[type], // duration in minutes based on the cycle type
       type: type,
     };
-    dispatch({ type: 'ADD_TASK', payload: newTask });
+    dispatch({ type: TaskActionTypes.ADD_TASK, payload: newTask });
     setBtn(true);
   };
 
@@ -56,7 +57,7 @@ export function MainForm() {
   });*/
 
   const handleStopTask = () => {
-    dispatch({ type: 'INTERRUPT_TASK' });
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
     /*setTask((prevTask: TaskStateModel) => {
       prevTask = changeTaskWhenInterrupted(prevTask);
       return {
