@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { TaskContext } from './TaskContext';
 import { initialTaskState } from './initialTaskState';
 import type { TaskStateModel } from '../models/TaskModel';
@@ -6,7 +6,8 @@ import {
   getValueFromLocalStorage,
   setValueToLocalStorage,
 } from '../utils/methods';
-import { taskReducer } from './taskReducer';
+import { TaskActionTypes, taskReducer } from './taskReducer';
+import { TimerWorkerManager } from '../workers/TimerWorkerManager';
 
 const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   const [task, dispatch] = useReducer(
@@ -19,10 +20,25 @@ const TaskProvider = ({ children }: { children: React.ReactNode }) => {
       initialTaskState,
   );*/
 
+  const worker = new Worker(
+    new URL('../workers/timerWorker.js', import.meta.url),
+  );
+
+  worker.onmessage = function (e) {
+    console.log('Message received from worker:', e.data);
+  };
+
   useEffect(() => {
     const parsedTask = JSON.stringify(task);
     setValueToLocalStorage('task', parsedTask, true);
-  }, [task]);
+    if (task.activeTask) {
+      worker.postMessage(task);
+    } else {
+      worker.terminate();
+    }
+
+    document.title = `${task.formattedSecondsRemaining} - Chronos Pomodoro`;
+  }, [worker, task]);
 
   return (
     <TaskContext.Provider value={{ task, dispatch }}>
