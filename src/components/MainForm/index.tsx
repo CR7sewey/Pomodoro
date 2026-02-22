@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { act, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import { DefaultInput } from '../DefaultInput';
 import { Tips } from '../Tips';
@@ -6,15 +6,11 @@ import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
 import useTaskContext from '../../context/useTaskContext';
 import type { TaskModel, TaskStateModel } from '../../models/TaskModel';
-import {
-  formatMinutesToMMSS,
-  getNextCycle,
-  getTypeOfCycle,
-} from '../../utils/methods';
+import { getNextCycle, getTypeOfCycle } from '../../utils/methods';
 
 export function MainForm() {
   const [btn, setBtn] = useState(false);
-  const { task, setTask } = useTaskContext();
+  const { task, dispatch } = useTaskContext();
   const taskSubmitted = useRef<HTMLInputElement>(null); // prevents unnecessary re-renders when typing in the input field, as the value is stored in a ref instead of state
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +24,16 @@ export function MainForm() {
       return;
     }
 
+    /*if (task.secondsRemaining > 0 && task.currentCycle > 0) {
+      dispatch({
+        type: 'ADD_TASK',
+        payload: task.tasks[task.tasks.length - 1],
+      });
+    
+      setBtn(true);
+      return;
+    }*/
+
     const nextCycle = getNextCycle(task.currentCycle);
     const type = getTypeOfCycle(nextCycle);
 
@@ -40,19 +46,7 @@ export function MainForm() {
       duration: task.config[type], // duration in minutes based on the cycle type
       type: type,
     };
-
-    //const secondsRemaining = newTask.duration * 60; // Convert duration from minutes to seconds
-
-    setTask((prevTask: TaskStateModel) => {
-      return {
-        ...prevTask,
-        currentCycle: nextCycle,
-        secondsRemaining: newTask.duration * 60, // to be implemented
-        formattedSecondsRemaining: formatMinutesToMMSS(newTask.duration), // formatted duration
-        tasks: [...prevTask.tasks, newTask],
-        activeTask: newTask,
-      };
-    });
+    dispatch({ type: 'ADD_TASK', payload: newTask });
     setBtn(true);
   };
 
@@ -62,6 +56,15 @@ export function MainForm() {
   });*/
 
   const handleStopTask = () => {
+    dispatch({ type: 'INTERRUPT_TASK' });
+    /*setTask((prevTask: TaskStateModel) => {
+      prevTask = changeTaskWhenInterrupted(prevTask);
+      return {
+        ...prevTask,
+        activeTask: null,
+      };
+    });*/
+
     setBtn(false);
   };
   console.log('Rendered');
@@ -78,7 +81,7 @@ export function MainForm() {
           name='taskName'
           ref={taskSubmitted}
           defaultValue={task.activeTask?.task || ''}
-          disabled={btn ? true : false}
+          disabled={!!task.activeTask} // disable input when a task is active
         />
         {/* value = {task} onChange = {(e) => setTask(e.target.value)} */}
       </div>
@@ -92,12 +95,12 @@ export function MainForm() {
       )}
       <div className='formRow'>
         <DefaultButton
-          type={btn === true ? 'button' : 'submit'}
+          type={btn ? 'button' : 'submit'}
           btn={btn}
           setBtn={setBtn}
-          color={btn === true ? 'red' : 'green'}
-          key={btn === true ? 'botao_button' : 'botao_submit'}
-          aria-label={btn === true ? 'Stop task' : 'Start task'}
+          color={btn ? 'red' : 'green'}
+          key={btn ? 'botao_button' : 'botao_submit'}
+          aria-label={btn ? 'Stop task' : 'Start task'}
           onClick={btn ? handleStopTask : undefined}
         />
       </div>

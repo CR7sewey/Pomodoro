@@ -58,6 +58,32 @@ function formatMinutesToMMSS(minutes: number): string {
   return `${String(mins).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+function changeTaskWhenInterrupted(task: TaskStateModel) {
+  task.tasks = task.tasks.map(t => {
+    console.log('Checking task:', t);
+    console.log('Active task:', task.activeTask);
+    if (t.id === task.activeTask?.id) {
+      console.log('Stopping task:', t);
+      // Logic
+      // if it is the first time being interrupted, we use startDate and interruptedDate;
+      const interruptedDate = Date.now();
+      console.log(
+        'Seconds remaining after interruption:',
+        task.secondsRemaining,
+      );
+      task.formattedSecondsRemaining = formatMinutesToMMSS(
+        task.secondsRemaining / 60,
+      );
+      return {
+        ...t,
+        interruptedDate,
+      };
+    }
+    return t;
+  });
+  return task;
+}
+
 export {
   getValueFromLocalStorage,
   setValueToLocalStorage,
@@ -65,4 +91,5 @@ export {
   getSecondsRemainingForCycle,
   getTypeOfCycle,
   formatMinutesToMMSS,
+  changeTaskWhenInterrupted,
 };
