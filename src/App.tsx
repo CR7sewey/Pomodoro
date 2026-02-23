@@ -5,13 +5,16 @@ import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { AboutPomodoro } from './pages/AboutPomodoro';
 import { TaskProvider } from './context/TaskContextProvider';
+import { MessagesContainer } from './components/MessagesContainer';
 
 export function App() {
   return (
     <>
-      <TaskProvider>
-        <Home />
-      </TaskProvider>
+      <MessagesContainer>
+        <TaskProvider>
+          <Home />
+        </TaskProvider>
+      </MessagesContainer>
     </>
   );
 }

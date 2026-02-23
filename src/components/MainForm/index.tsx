@@ -8,6 +8,7 @@ import useTaskContext from '../../context/useTaskContext';
 import type { TaskModel, TaskStateModel } from '../../models/TaskModel';
 import { getNextCycle, getTypeOfCycle } from '../../utils/methods';
 import { TaskActionTypes } from '../../context/taskReducer';
+import { showMessage } from '../../adapter/showMessage';
 
 export function MainForm() {
   const [btn, setBtn] = useState(false);
@@ -16,12 +17,13 @@ export function MainForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    showMessage.dismiss(); // dismiss any existing toasts before showing a new one
     console.log('Form submitted:', taskSubmitted.current?.value);
     // const formData = new FormData(e.currentTarget);
     // const formValues = Object.fromEntries(formData);
     const taskName = taskSubmitted.current?.value.trim();
     if (taskName === '') {
-      alert('Please enter a task name.');
+      showMessage.warn('Please enter a task name before starting.');
       return;
     }
 
@@ -49,6 +51,7 @@ export function MainForm() {
     };
     dispatch({ type: TaskActionTypes.ADD_TASK, payload: newTask });
     setBtn(true);
+    showMessage.success(`Started task: ${taskName}`);
   };
 
   /*document.addEventListener('submit', (e: any) => {
@@ -57,6 +60,7 @@ export function MainForm() {
   });*/
 
   const handleStopTask = () => {
+    showMessage.info('Task interrupted. Returning to Home screen.');
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
     /*setTask((prevTask: TaskStateModel) => {
       prevTask = changeTaskWhenInterrupted(prevTask);
