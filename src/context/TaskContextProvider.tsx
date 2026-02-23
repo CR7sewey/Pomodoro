@@ -1,13 +1,12 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { TaskContext } from './TaskContext';
 import { initialTaskState } from './initialTaskState';
-import type { TaskStateModel } from '../models/TaskModel';
 import {
   getValueFromLocalStorage,
   setValueToLocalStorage,
 } from '../utils/methods';
 import { TaskActionTypes, taskReducer } from './taskReducer';
-import { TimerWorkerManager } from '../workers/TimerWorkerManager';
+import { TimerWorkerManager } from '../workers/TimeWorkerManager';
 
 const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   const [task, dispatch] = useReducer(
@@ -20,23 +19,39 @@ const TaskProvider = ({ children }: { children: React.ReactNode }) => {
       initialTaskState,
   );*/
 
-  const worker = new Worker(
+  /*const worker = new Worker(
     new URL('../workers/timerWorker.js', import.meta.url),
-  );
+  );*/
+  const worker = TimerWorkerManager.getInstance();
 
-  worker.onmessage = function (e) {
+  // receive messages from the worker and update the task state accordingly
+  worker.onmessage(e => {
     console.log('Message received from worker:', e.data);
-  };
+    const countdown = e.data;
+    if (countdown <= 0) {
+      worker.terminate();
+      dispatch({
+        type: TaskActionTypes.COMPLETE_TASK,
+      });
+      return;
+    }
+
+    dispatch({
+      type: TaskActionTypes.COUNT_DOWN,
+      payload: { secondsRemaining: countdown },
+    });
+  });
+
+  //worker.dispatchEvent(new MessageEvent('message', { data: task }));
 
   useEffect(() => {
     const parsedTask = JSON.stringify(task);
     setValueToLocalStorage('task', parsedTask, true);
-    if (task.activeTask) {
-      worker.postMessage(task);
-    } else {
+    if (!task.activeTask) {
       worker.terminate();
     }
-
+    worker.postMessage(task);
+    console.log('Task state updated and sent to worker:', task);
     document.title = `${task.formattedSecondsRemaining} - Chronos Pomodoro`;
   }, [worker, task]);
 

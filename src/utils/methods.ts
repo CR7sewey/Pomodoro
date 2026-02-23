@@ -58,6 +58,12 @@ function formatMinutesToMMSS(minutes: number): string {
   return `${String(mins).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+export function formatSecondsToMinutes(seconds: number) {
+  const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const secondsMod = String(Math.floor(seconds % 60)).padStart(2, '0');
+  return `${minutes}:${secondsMod}`;
+}
+
 function changeTaskWhenInterrupted(task: TaskStateModel) {
   task.tasks = task.tasks.map(t => {
     console.log('Checking task:', t);
@@ -71,8 +77,8 @@ function changeTaskWhenInterrupted(task: TaskStateModel) {
         'Seconds remaining after interruption:',
         task.secondsRemaining,
       );
-      task.formattedSecondsRemaining = formatMinutesToMMSS(
-        task.secondsRemaining / 60,
+      task.formattedSecondsRemaining = formatSecondsToMinutes(
+        task.secondsRemaining,
       );
       return {
         ...t,
