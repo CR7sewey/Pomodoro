@@ -6,15 +6,16 @@ import { NotFound } from './pages/NotFound';
 import { AboutPomodoro } from './pages/AboutPomodoro';
 import { TaskProvider } from './context/TaskContextProvider';
 import { MessagesContainer } from './components/MessagesContainer';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import { MainRouter } from './router/MainRouter';
+import { use, useEffect, useState } from 'react';
 
 export function App() {
   return (
-    <>
-      <MessagesContainer>
-        <TaskProvider>
-          <Home />
-        </TaskProvider>
-      </MessagesContainer>
-    </>
+    <MessagesContainer>
+      <TaskProvider>
+        <MainRouter />
+      </TaskProvider>
+    </MessagesContainer>
   );
 }
