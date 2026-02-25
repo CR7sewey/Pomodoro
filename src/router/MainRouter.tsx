@@ -11,7 +11,7 @@ import {
 } from 'react-router';
 import { AboutPomodoro } from '../pages/AboutPomodoro';
 
-// guarantees that the page scrolls to the top when navigating to a new route
+// guarantees that the page scrolls to the top when navigating to a new route - inside BrowserRouter context, otherwise useLocation will throw an error because it can only be used inside a Router context.
 function ScrollToTop() {
   const { pathname } = useLocation();
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { MainTemplate } from '../../templates/MainTemplate';
 import { GenericHtml } from '../../components/GenericHtml';
 import Container from '../../components/Container';
+import { RouterLinkCustom } from '../../components/RouterLinkCustom';
 
 export const AboutPomodoro = () => {
   return (
@@ -96,7 +97,7 @@ export const AboutPomodoro = () => {
           <h3>📊 Histórico automático</h3>
           <p>
             Todas as suas tarefas e ciclos concluídos ficam salvos no{' '}
-            <a href='/history/'>histórico</a>, com status de completas ou
+            <RouterLinkCustom href='/history/'>histórico</RouterLinkCustom>, com status de completas ou
             interrompidas. Assim, você consegue acompanhar sua evolução ao longo
             do tempo.
           </p>
@@ -111,7 +112,7 @@ export const AboutPomodoro = () => {
 
           <p>
             <strong>Pronto pra focar?</strong> Bora lá{' '}
-            <a href='/'>voltar para a página inicial</a> e iniciar seus
+            <RouterLinkCustom href='/'>voltar para a página inicial</RouterLinkCustom> e iniciar seus
             Pomodoros! 🍅🚀
           </p>
 

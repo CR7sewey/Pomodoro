@@ -6,7 +6,7 @@ import {
   getValueFromLocalStorage,
   setValueToLocalStorage,
 } from '../../utils/methods';
-import { NavLink, Link } from 'react-router';
+import { RouterLinkCustom } from '../RouterLinkCustom';
 
 type MenuProps = {
   navItems: typeof menuItems;
@@ -46,9 +46,9 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
   return (
     <nav className={styles.menu}>
       {navItems.slice(0, -1).map(item => (
-        <Link
+        <RouterLinkCustom
           key={item.id}
-          to={item.link}
+          to={{ pathname: item.link }}
           className={styles.menuLink + (item.active ? ` ${styles.active}` : '')}
           onClick={() => {
             // e.preventDefault();
@@ -56,12 +56,12 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
           }}
         >
           {item.icon}
-        </Link>
+        </RouterLinkCustom>
       ))}
       {navItems.slice(-1).map(item => (
-        <a
+        <RouterLinkCustom
           key={item.id}
-          href={item.link}
+          to={{ pathname: item.link }}
           className={styles.menuLink + (item.active ? ` ${styles.active}` : '')}
           onClick={e => {
             e.preventDefault();
@@ -69,7 +69,7 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
           }}
         >
           {nextTheme[theme.toLowerCase()]}
-        </a>
+        </RouterLinkCustom>
       ))}
     </nav>
   );
