@@ -7,12 +7,19 @@ import {
 } from '../utils/methods';
 import { TaskActionTypes, taskReducer } from './taskReducer';
 import { TimerWorkerManager } from '../workers/TimeWorkerManager';
+import type { TaskStateModel } from '../models/TaskModel';
 
 const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   const [task, dispatch] = useReducer(
     taskReducer,
-    JSON.parse(getValueFromLocalStorage('task', true) ?? 'null') ??
-      initialTaskState,
+    initialTaskState,
+      () => {
+        if (getValueFromLocalStorage('task', true)) {
+          return initialTaskState; // Return initial state if task exists in localStorage to avoid parsing issues
+        }
+        const parsed = JSON.parse(getValueFromLocalStorage('task', true) as string) as TaskStateModel;
+        return {...parsed, activeTask: null, secondsRemaining: 0}; // Ensure activeTask is false on load to prevent unintended timer starts
+      }
   );
   /*useState<TaskStateModel>(
     JSON.parse(getValueFromLocalStorage('task', true) ?? 'null') ??

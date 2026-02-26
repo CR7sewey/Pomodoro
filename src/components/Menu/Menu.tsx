@@ -61,6 +61,7 @@ export function Menu({ navItems, setNavItems }: MenuProps) {
       {navItems.slice(-1).map(item => (
         <RouterLinkCustom
           key={item.id}
+          href={item.link}
           to={{ pathname: item.link }}
           className={styles.menuLink + (item.active ? ` ${styles.active}` : '')}
           onClick={e => {
