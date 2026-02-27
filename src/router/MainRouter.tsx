@@ -10,6 +10,7 @@ import {
   useLocation,
 } from 'react-router';
 import { AboutPomodoro } from '../pages/AboutPomodoro';
+import { History } from '../pages/History';
 
 // guarantees that the page scrolls to the top when navigating to a new route - inside BrowserRouter context, otherwise useLocation will throw an error because it can only be used inside a Router context.
 function ScrollToTop() {
@@ -33,6 +34,7 @@ export const MainRouter = () => {
       path: '/about-pomodoro',
       element: <AboutPomodoro />, // Replace with the actual component for the about page
     },
+    
     {
       path: '*',
       element: <NotFound />,
@@ -48,6 +50,7 @@ export const MainRouter = () => {
       <Routes>
         <Route index path='/' element={<Home />} />
         <Route path='/about-pomodoro' element={<AboutPomodoro />} />
+        <Route path='/history' element={<History />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <ScrollToTop />
