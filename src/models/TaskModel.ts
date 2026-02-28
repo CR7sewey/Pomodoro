@@ -45,4 +45,16 @@ const initialTaskState: TaskStateModel = {
   },
 };
 
-export { type TaskModel, type TaskStateModel, initialTaskState, testTask };
+const typeConversion = {
+  workDuration: 'Work',
+  shortBreakDuration: 'Short break',
+  longBreakDuration: 'Long break',
+};
+
+export {
+  type TaskModel,
+  type TaskStateModel,
+  initialTaskState,
+  testTask,
+  typeConversion,
+};

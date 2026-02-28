@@ -25,6 +25,15 @@
   background-color: var(--gray-600);
 }
 
+.responsiveTable th:hover {
+  filter: brightness(80%);
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--gray-700) !important;
+}
+
 .responsiveTable td {
   background-color: var(--gray-800);
 }

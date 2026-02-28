@@ -6,10 +6,14 @@ import type { TaskAction } from './taskReducer';
 type TaskContextType = {
   task: TaskStateModel;
   dispatch: React.ActionDispatch<[action: TaskAction]>;
+  btn: boolean;
+  setBtn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const TaskContext = createContext<TaskContextType>({
   task: initialTaskState,
-  dispatch: () => {},
+  dispatch: () => { },
+  btn: false,
+  setBtn: () => { },
 }); // context initally null, will be provided by TaskProvider
 
 export { TaskContext, type TaskContextType };

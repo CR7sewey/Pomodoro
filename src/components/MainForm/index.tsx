@@ -11,8 +11,7 @@ import { TaskActionTypes } from '../../context/taskReducer';
 import { showMessage } from '../../adapter/showMessage';
 
 export function MainForm() {
-  const [btn, setBtn] = useState(false);
-  const { task, dispatch } = useTaskContext();
+  const { task, dispatch, btn, setBtn } = useTaskContext();
   const taskSubmitted = useRef<HTMLInputElement>(null); // prevents unnecessary re-renders when typing in the input field, as the value is stored in a ref instead of state
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -102,7 +101,6 @@ export function MainForm() {
         <DefaultButton
           type={btn ? 'button' : 'submit'}
           btn={btn}
-          setBtn={setBtn}
           color={btn ? 'red' : 'green'}
           key={btn ? 'botao_button' : 'botao_submit'}
           aria-label={btn ? 'Stop task' : 'Start task'}

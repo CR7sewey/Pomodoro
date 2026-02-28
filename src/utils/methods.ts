@@ -1,7 +1,7 @@
 import type { TaskStateModel } from '../models/TaskModel';
 
 function getValueFromLocalStorage(key: string, parse: boolean = false) {
-  const value = localStorage.getItem(key);
+  const value = localStorage.getItem(key) ?? null;
   return value;
 }
 
