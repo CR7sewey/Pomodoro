@@ -1,4 +1,9 @@
-import type { TaskStateModel } from '../models/TaskModel';
+import { format } from 'date-fns';
+import {
+  typeConversion,
+  type TaskModel,
+  type TaskStateModel,
+} from '../models/TaskModel';
 
 function getValueFromLocalStorage(key: string, parse: boolean = false) {
   const value = localStorage.getItem(key) ?? null;
@@ -90,6 +95,77 @@ function changeTaskWhenInterrupted(task: TaskStateModel) {
   return task;
 }
 
+function sortTasksByField(
+  tasks: TaskStateModel['tasks'],
+  field: 'task' | 'duration' | 'date' | 'status' | 'type',
+  direction: 'asc' | 'desc',
+): TaskStateModel['tasks'] {
+  return tasks.sort((a, b) => {
+    if (field === 'task') {
+      if (direction === 'asc') {
+        return a.task.localeCompare(b.task); // sort by task name (string)
+      }
+      return b.task.localeCompare(a.task); // sort by task name (string)
+    }
+    if (field === 'duration') {
+      if (direction === 'asc') {
+        return a.duration - b.duration; // sort by duration (number)
+      }
+      return b.duration - a.duration; // sort by duration (number)
+    } else if (field === 'date') {
+      if (direction === 'asc') {
+        return a.startDate - b.startDate; // sort by start date (number)
+      }
+      return b.startDate - a.startDate; // sort by start date (number)
+    } else if (field === 'status') {
+      const statusA = a.endDate
+        ? 'Completed'
+        : a.interruptedDate
+          ? 'Interrupted'
+          : 'In Progress';
+      const statusB = b.endDate
+        ? 'Completed'
+        : b.interruptedDate
+          ? 'Interrupted'
+          : 'In Progress';
+      if (direction === 'asc') {
+        return statusA.localeCompare(statusB); // sort by status (string)
+      }
+      return statusB.localeCompare(statusA); // sort by status (string)
+    } else if (field === 'type') {
+      const typeA = typeConversion[a.type];
+      const typeB = typeConversion[b.type];
+      if (direction === 'asc') {
+        return typeA.localeCompare(typeB); // sort by type (string)
+      }
+      return typeB.localeCompare(typeA); // sort by type (string)
+    } else {
+      return 0; // If field is not recognized, do not sort
+    }
+  });
+}
+
+function getFormattedDate(date: number): string {
+  const dateF = new Date(date);
+  return format(dateF, 'dd/MM/yyyy HH:mm');
+}
+
+function getTaskStatus(
+  task: TaskModel,
+  activeTask: TaskStateModel['activeTask'],
+): 'Completed' | 'Interrupted' | 'In Progress' | 'Abandoned' {
+  if (task.endDate) {
+    return 'Completed';
+  }
+  if (task.interruptedDate) {
+    return 'Interrupted';
+  }
+  if (task.id === activeTask?.id) {
+    return 'In Progress';
+  }
+  return 'Abandoned';
+}
+
 export {
   getValueFromLocalStorage,
   setValueToLocalStorage,
@@ -98,4 +174,7 @@ export {
   getTypeOfCycle,
   formatMinutesToMMSS,
   changeTaskWhenInterrupted,
+  sortTasksByField,
+  getFormattedDate,
+  getTaskStatus,
 };
