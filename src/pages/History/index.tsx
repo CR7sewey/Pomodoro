@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Container from '../../components/Container'
 import { MainTemplate } from '../../templates/MainTemplate'
 import Heading from '../../components/Heading'
@@ -73,6 +73,12 @@ export const History = () => {
     }*/
 
   }
+
+  // to clear any existing toasts when the component mounts to prevent stale messages from previous interactions
+  // simila to clearInterval or cleartTImeout when using setInterval or setTimeout in a component, we can use the cleanup function of useEffect to clear any existing toasts when the component mounts
+  useEffect(() => {
+    return () => showMessage.dismiss(); // dismiss any existing toasts when the component mounts to prevent stale messages from previous interactions
+  }, []);
 
   return (
     <MainTemplate>
