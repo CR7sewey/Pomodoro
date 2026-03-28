@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up",
+    "docker:start": "docker compose up --build",
+    "docker:down": "docker compose down"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
